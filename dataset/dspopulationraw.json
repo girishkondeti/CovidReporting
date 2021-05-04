@@ -13,7 +13,7 @@
 				"fileName": "population_by_age.tsv.gz",
 				"container": "gkcovidreportingcont"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": "\t",
 			"compressionCodec": "gzip",
 			"compressionLevel": "Optimal",
 			"escapeChar": "\\",
