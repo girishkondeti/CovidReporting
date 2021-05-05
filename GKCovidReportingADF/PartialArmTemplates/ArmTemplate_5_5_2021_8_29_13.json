@@ -6,22 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "GKCovidReportingADF"
-		},
-		"ls_ablob_covidreportingsa_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'ls_ablob_covidreportingsa'"
-		},
-		"ls_adls_covidreporting_dl_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'ls_adls_covidreporting_dl'"
-		},
-		"ls_adls_covidreporting_dl_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://gkcovidreportingdl.dfs.core.windows.net"
-		},
-		"Tr_copyfile_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/6d53f9f4-c0aa-476f-a768-52917162c8b5/resourceGroups/GKCoidReportingRG/providers/Microsoft.Storage/storageAccounts/gkcovidreportingsa"
 		}
 	},
 	"variables": {
@@ -42,8 +26,7 @@
 						"typeProperties": {
 							"dataset": {
 								"referenceName": "dspopulationraw",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							},
 							"timeout": "0.00:00:30",
 							"sleep": 10,
@@ -72,8 +55,7 @@
 						"typeProperties": {
 							"dataset": {
 								"referenceName": "dspopulationraw",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							},
 							"fieldList": [
 								"columnCount",
@@ -122,8 +104,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"url": "http://myurl",
-										"method": "GET",
-										"headers": {}
+										"method": "GET"
 									}
 								}
 							],
@@ -176,15 +157,13 @@
 									"inputs": [
 										{
 											"referenceName": "dspopulationraw",
-											"type": "DatasetReference",
-											"parameters": {}
+											"type": "DatasetReference"
 										}
 									],
 									"outputs": [
 										{
 											"referenceName": "ds_population_raw_tsv",
-											"type": "DatasetReference",
-											"parameters": {}
+											"type": "DatasetReference"
 										}
 									]
 								},
@@ -210,8 +189,7 @@
 									"typeProperties": {
 										"dataset": {
 											"referenceName": "dspopulationraw",
-											"type": "DatasetReference",
-											"parameters": {}
+											"type": "DatasetReference"
 										},
 										"enableLogging": false,
 										"storeSettings": {
@@ -227,98 +205,6 @@
 				],
 				"annotations": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/dspopulationraw')]",
-				"[concat(variables('factoryId'), '/datasets/ds_population_raw_tsv')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_population_raw_tsv')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_adls_covidreporting_dl",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "population_by_age.tsv",
-						"folderPath": "Population",
-						"fileSystem": "gkraw"
-					},
-					"columnDelimiter": "\t",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidreporting_dl')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dspopulationraw')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_ablob_covidreportingsa",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "population_by_age.tsv.gz",
-						"container": "gkcovidreportingcont"
-					},
-					"columnDelimiter": "\t",
-					"compressionCodec": "gzip",
-					"compressionLevel": "Optimal",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_ablob_covidreportingsa')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ls_ablob_covidreportingsa')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('ls_ablob_covidreportingsa_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ls_adls_covidreporting_dl')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('ls_adls_covidreporting_dl_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('ls_adls_covidreporting_dl_accountKey')]"
-					}
-				}
-			},
 			"dependsOn": []
 		},
 		{
@@ -333,15 +219,14 @@
 						"pipelineReference": {
 							"referenceName": "pl_ingest_population_data",
 							"type": "PipelineReference"
-						},
-						"parameters": {}
+						}
 					}
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/gkcovidreportingcont/blobs/population_by_age.tsv.gz",
 					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('Tr_copyfile_properties_typeProperties_scope')]",
+					"scope": "/subscriptions/6d53f9f4-c0aa-476f-a768-52917162c8b5/resourceGroups/GKCoidReportingRG/providers/Microsoft.Storage/storageAccounts/gkcovidreportingsa",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
 					]

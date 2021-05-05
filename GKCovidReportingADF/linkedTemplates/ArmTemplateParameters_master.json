@@ -14,6 +14,9 @@
 		"ls_adls_covidreporting_dl_properties_typeProperties_url": {
 			"value": "https://gkcovidreportingdl.dfs.core.windows.net"
 		},
+		"Tr_copyfile_properties_typeProperties_scope": {
+			"value": "/subscriptions/6d53f9f4-c0aa-476f-a768-52917162c8b5/resourceGroups/GKCoidReportingRG/providers/Microsoft.Storage/storageAccounts/gkcovidreportingsa"
+		},
 		"containerUri": {
 			"value": ""
 		},
