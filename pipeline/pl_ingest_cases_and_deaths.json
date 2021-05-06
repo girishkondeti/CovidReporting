@@ -55,7 +55,13 @@
 				"outputs": [
 					{
 						"referenceName": "ds_cases_and_deathes_raw_dl",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"FilePath": {
+								"value": "@variables('SinkFileName')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
