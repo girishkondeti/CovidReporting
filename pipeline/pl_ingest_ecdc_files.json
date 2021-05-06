@@ -1,9 +1,9 @@
 {
-	"name": "pl_ingest_cases_and_deaths",
+	"name": "pl_ingest_ecdc_files",
 	"properties": {
 		"activities": [
 			{
-				"name": "copy cases and deaths data",
+				"name": "copy ecdc files",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -48,17 +48,23 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_cases_and_deaths_raw_http",
-						"type": "DatasetReference"
+						"referenceName": "ds_ecdc_raw_http",
+						"type": "DatasetReference",
+						"parameters": {
+							"Relativepath": {
+								"value": "@pipeline().parameters.RelativePath",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_cases_and_deathes_raw_dl",
+						"referenceName": "ds_ecdc_raw_dl",
 						"type": "DatasetReference",
 						"parameters": {
 							"FilePath": {
-								"value": "@variables('SinkFileName')",
+								"value": "@pipeline().parameters.SinkFileName",
 								"type": "Expression"
 							}
 						}
@@ -66,10 +72,12 @@
 				]
 			}
 		],
-		"variables": {
+		"parameters": {
 			"SinkFileName": {
-				"type": "String",
-				"defaultValue": "hospital_admissions.csv"
+				"type": "string"
+			},
+			"RelativePath": {
+				"type": "string"
 			}
 		},
 		"annotations": []
