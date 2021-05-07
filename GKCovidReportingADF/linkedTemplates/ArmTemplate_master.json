@@ -27,14 +27,6 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/6d53f9f4-c0aa-476f-a768-52917162c8b5/resourceGroups/GKCoidReportingRG/providers/Microsoft.Storage/storageAccounts/gkcovidreportingsa"
 		},
-		"tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_SinkFileName": {
-			"type": "string",
-			"defaultValue": "hospital_admissions.csv"
-		},
-		"tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_RelativePath": {
-			"type": "string",
-			"defaultValue": "cloudboxacademy/covid19/main/ecdc_data/hospital_admissions.csv"
-		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -76,12 +68,6 @@
 					},
 					"Tr_copyfile_properties_typeProperties_scope": {
 						"value": "[parameters('Tr_copyfile_properties_typeProperties_scope')]"
-					},
-					"tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_SinkFileName": {
-						"value": "[parameters('tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_SinkFileName')]"
-					},
-					"tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_RelativePath": {
-						"value": "[parameters('tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_RelativePath')]"
 					}
 				}
 			},

@@ -26,14 +26,6 @@
 		"Tr_copyfile_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/6d53f9f4-c0aa-476f-a768-52917162c8b5/resourceGroups/GKCoidReportingRG/providers/Microsoft.Storage/storageAccounts/gkcovidreportingsa"
-		},
-		"tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_SinkFileName": {
-			"type": "string",
-			"defaultValue": "hospital_admissions.csv"
-		},
-		"tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_RelativePath": {
-			"type": "string",
-			"defaultValue": "cloudboxacademy/covid19/main/ecdc_data/hospital_admissions.csv"
 		}
 	},
 	"variables": {
@@ -184,7 +176,9 @@
 				"type": "Json",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobStorageLocation"
+						"type": "AzureBlobStorageLocation",
+						"fileName": "ecdc_file_list.json",
+						"container": "configs"
 					}
 				},
 				"schema": {}
@@ -259,8 +253,8 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "copy ecdc files",
-						"type": "Copy",
+						"name": "Lookup ecdc file list",
+						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
@@ -272,80 +266,124 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "DelimitedTextSource",
+								"type": "JsonSource",
 								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET"
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
+									"type": "JsonReadSettings"
 								}
 							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "ds_ecdc_raw_http",
+							"dataset": {
+								"referenceName": "ds_json_ecdc_files_list",
 								"type": "DatasetReference",
-								"parameters": {
-									"Relativepath": {
-										"value": "@pipeline().parameters.RelativePath",
-										"type": "Expression"
-									},
-									"BasePath": {
-										"value": "@pipeline().parameters.BasePath",
-										"type": "Expression"
-									}
-								}
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup ecdc file list",
+								"dependencyConditions": [
+									"Succeeded"
+								]
 							}
 						],
-						"outputs": [
-							{
-								"referenceName": "ds_ecdc_raw_dl",
-								"type": "DatasetReference",
-								"parameters": {
-									"FilePath": {
-										"value": "@pipeline().parameters.SinkFileName",
-										"type": "Expression"
-									}
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup ecdc file list').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "copy ecdc files",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "HttpReadSettings",
+												"requestMethod": "GET"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".txt"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_ecdc_raw_http",
+											"type": "DatasetReference",
+											"parameters": {
+												"Relativepath": {
+													"value": "@item().sourceRelativeURL",
+													"type": "Expression"
+												},
+												"BasePath": {
+													"value": "@item().sourceBaseURL",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_ecdc_raw_dl",
+											"type": "DatasetReference",
+											"parameters": {
+												"FilePath": {
+													"value": "@item().sinkFileName",
+													"type": "Expression"
+												}
+											}
+										}
+									]
 								}
-							}
-						]
+							]
+						}
 					}
 				],
-				"parameters": {
-					"SinkFileName": {
-						"type": "string"
-					},
-					"RelativePath": {
-						"type": "string"
-					},
-					"BasePath": {
-						"type": "string"
-					}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_json_ecdc_files_list')]",
 				"[concat(variables('factoryId'), '/datasets/ds_ecdc_raw_http')]",
 				"[concat(variables('factoryId'), '/datasets/ds_ecdc_raw_dl')]"
 			]
@@ -597,10 +635,7 @@
 							"referenceName": "pl_ingest_ecdc_files",
 							"type": "PipelineReference"
 						},
-						"parameters": {
-							"SinkFileName": "[parameters('tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_SinkFileName')]",
-							"RelativePath": "[parameters('tr_ecdc_data_copy_properties_pl_ingest_ecdc_files_parameters_RelativePath')]"
-						}
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
