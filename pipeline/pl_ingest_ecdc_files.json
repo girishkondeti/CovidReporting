@@ -54,6 +54,10 @@
 							"Relativepath": {
 								"value": "@pipeline().parameters.RelativePath",
 								"type": "Expression"
+							},
+							"BasePath": {
+								"value": "@pipeline().parameters.BasePath",
+								"type": "Expression"
 							}
 						}
 					}
@@ -77,6 +81,9 @@
 				"type": "string"
 			},
 			"RelativePath": {
+				"type": "string"
+			},
+			"BasePath": {
 				"type": "string"
 			}
 		},
