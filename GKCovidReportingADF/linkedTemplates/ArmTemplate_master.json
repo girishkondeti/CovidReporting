@@ -21,7 +21,7 @@
 		},
 		"ls_http_opendata_ecdc_europa_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com"
+			"defaultValue": "@{linkedService().BaseURL}"
 		},
 		"Tr_copyfile_properties_typeProperties_scope": {
 			"type": "string",

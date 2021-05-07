@@ -15,7 +15,7 @@
 			"value": "https://gkcovidreportingdl.dfs.core.windows.net"
 		},
 		"ls_http_opendata_ecdc_europa_properties_typeProperties_url": {
-			"value": "https://raw.githubusercontent.com"
+			"value": "@{linkedService().BaseURL}"
 		},
 		"Tr_copyfile_properties_typeProperties_scope": {
 			"value": "/subscriptions/6d53f9f4-c0aa-476f-a768-52917162c8b5/resourceGroups/GKCoidReportingRG/providers/Microsoft.Storage/storageAccounts/gkcovidreportingsa"

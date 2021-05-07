@@ -21,7 +21,7 @@
 		},
 		"ls_http_opendata_ecdc_europa_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com"
+			"defaultValue": "@{linkedService().BaseURL}"
 		},
 		"Tr_copyfile_properties_typeProperties_scope": {
 			"type": "string",
@@ -98,6 +98,10 @@
 									"Relativepath": {
 										"value": "@pipeline().parameters.RelativePath",
 										"type": "Expression"
+									},
+									"BasePath": {
+										"value": "@pipeline().parameters.BasePath",
+										"type": "Expression"
 									}
 								}
 							}
@@ -121,6 +125,9 @@
 						"type": "string"
 					},
 					"RelativePath": {
+						"type": "string"
+					},
+					"BasePath": {
 						"type": "string"
 					}
 				},
@@ -379,10 +386,19 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "ls_http_opendata_ecdc_europa",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"BaseURL": {
+							"value": "@dataset().BasePath",
+							"type": "Expression"
+						}
+					}
 				},
 				"parameters": {
 					"Relativepath": {
+						"type": "string"
+					},
+					"BasePath": {
 						"type": "string"
 					}
 				},
@@ -405,6 +421,28 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_http_opendata_ecdc_europa')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_json_ecdc_files_list')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_ablob_covidreportingsa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_ablob_covidreportingsa')]"
 			]
 		},
 		{
@@ -501,6 +539,11 @@
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"parameters": {
+					"BaseURL": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "HttpServer",
 				"typeProperties": {
@@ -567,8 +610,7 @@
 						"interval": 1,
 						"startTime": "2021-05-06T16:55:00Z",
 						"endTime": "2021-05-07T16:42:00Z",
-						"timeZone": "UTC",
-						"schedule": {}
+						"timeZone": "UTC"
 					}
 				}
 			},
