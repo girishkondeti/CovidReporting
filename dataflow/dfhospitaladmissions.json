@@ -1,0 +1,56 @@
+{
+	"name": "dfhospitaladmissions",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_hospital_Admissions",
+						"type": "DatasetReference"
+					},
+					"name": "SrcHospitalAdmissionsFile"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_dim_date",
+						"type": "DatasetReference"
+					},
+					"name": "lkpDimDate"
+				},
+				{
+					"dataset": {
+						"referenceName": "df_country_lookup",
+						"type": "DatasetReference"
+					},
+					"name": "srcLkpcountry"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "Select1ReqFeilds"
+				},
+				{
+					"name": "Lkpcountry"
+				},
+				{
+					"name": "Select2RequiredFeilds"
+				},
+				{
+					"name": "SplitDailyFromWeekly"
+				},
+				{
+					"name": "DCYearWeek"
+				},
+				{
+					"name": "AggrDimdate"
+				},
+				{
+					"name": "JoinWeeklyDimdate"
+				}
+			],
+			"script": "source(output(\n\t\tcountry as string,\n\t\tindicator as string,\n\t\tdate as date,\n\t\tyear_week as string,\n\t\tvalue as double,\n\t\tsource as string,\n\t\turl as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> SrcHospitalAdmissionsFile\nsource(output(\n\t\tdate_key as date,\n\t\tdate as date,\n\t\tyear as string,\n\t\tmonth as short,\n\t\tday as short,\n\t\tday_name as string,\n\t\tday_of_year as short,\n\t\tweek_of_month as short,\n\t\tweek_of_year as string,\n\t\tmonth_name as string,\n\t\tyear_month as integer,\n\t\tyear_week as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> lkpDimDate\nsource(output(\n\t\tcountry as string,\n\t\tcountry_code_2_digit as string,\n\t\tcountry_code_3_digit as string,\n\t\tcontinent as string,\n\t\tpopulation as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> srcLkpcountry\nSrcHospitalAdmissionsFile select(mapColumn(\n\t\tcountry,\n\t\tindicator,\n\t\treported_date = date,\n\t\treported_year_week = year_week,\n\t\tvalue,\n\t\tsource\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Select1ReqFeilds\nSelect1ReqFeilds, srcLkpcountry lookup(Select1ReqFeilds@country == srcLkpcountry@country,\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> Lkpcountry\nLkpcountry select(mapColumn(\n\t\tcountry = Select1ReqFeilds@country,\n\t\tcountry_code_2_digit,\n\t\tcountry_code_3_digit,\n\t\tindicator,\n\t\treported_date,\n\t\treported_year_week,\n\t\tvalue,\n\t\tsource,\n\t\tpopulation\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Select2RequiredFeilds\nSelect2RequiredFeilds split(indicator =='Weekly new ICU admissions per 100k' || indicator=='Weekly new hospital admissions per 100k',\n\tindicator=='Daily hospital occupancy' || indicator=='Daily ICU occupancy',\n\tdisjoint: false) ~> SplitDailyFromWeekly@(Weekly, Daily)\nlkpDimDate derive(ecdc_yearweek = year + '-W' + lpad(week_of_year,2,'0')) ~> DCYearWeek\nDCYearWeek aggregate(groupBy(ecdc_yearweek),\n\tWeekStartDate = min(date),\n\t\tWeekSEndDate = max(date)) ~> AggrDimdate\nSplitDailyFromWeekly@Weekly, AggrDimdate join(reported_year_week == ecdc_yearweek,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> JoinWeeklyDimdate"
+		}
+	}
+}

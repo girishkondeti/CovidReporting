@@ -8,10 +8,6 @@
 				"pipelineReference": {
 					"referenceName": "pl_ingest_ecdc_files",
 					"type": "PipelineReference"
-				},
-				"parameters": {
-					"SinkFileName": "hospital_admissions.csv",
-					"RelativePath": "cloudboxacademy/covid19/main/ecdc_data/hospital_admissions.csv"
 				}
 			}
 		],
@@ -20,8 +16,8 @@
 			"recurrence": {
 				"frequency": "Day",
 				"interval": 1,
-				"startTime": "2021-05-06T16:49:00Z",
-				"endTime": "2021-05-07T16:42:00Z",
+				"startTime": "2021-05-07T13:26:00Z",
+				"endTime": "2021-05-08T13:00:00Z",
 				"timeZone": "UTC"
 			}
 		}
