@@ -1,5 +1,5 @@
 {
-	"name": "df_country_lookup",
+	"name": "ds_country_lookup",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_adls_covidreporting_dl",
@@ -11,6 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "country_lookup.csv",
+				"folderPath": "country_lookup",
 				"fileSystem": "lookup"
 			},
 			"columnDelimiter": ",",
