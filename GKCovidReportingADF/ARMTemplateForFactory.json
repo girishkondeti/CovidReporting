@@ -469,34 +469,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/df_country_lookup')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_adls_covidreporting_dl",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "country_lookup.csv",
-						"fileSystem": "lookup"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidreporting_dl')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/df_hospital_weekly')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -641,7 +613,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "cases_deaths.csv",
-						"folderPath": "ecdc",
+						"folderPath": "ecdc/cases_deaths",
 						"fileSystem": "gkraw"
 					},
 					"columnDelimiter": ",",
@@ -693,6 +665,35 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_country_lookup')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_covidreporting_dl",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "country_lookup.csv",
+						"folderPath": "country_lookup",
+						"fileSystem": "lookup"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidreporting_dl')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_dim_date')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -707,6 +708,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "dim_date.csv",
+						"folderPath": "dim_date",
 						"fileSystem": "lookup"
 					},
 					"columnDelimiter": ",",
@@ -865,7 +867,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "hospital_admissions.csv",
-						"folderPath": "ecdc",
+						"folderPath": "ecdc/hospital_admissions",
 						"fileSystem": "gkraw"
 					},
 					"columnDelimiter": ",",
@@ -1147,7 +1149,7 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "df_country_lookup",
+								"referenceName": "ds_country_lookup",
 								"type": "DatasetReference"
 							},
 							"name": "LookupCountry"
@@ -1184,7 +1186,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/df_transform_cases_deaths')]",
-				"[concat(variables('factoryId'), '/datasets/df_country_lookup')]",
+				"[concat(variables('factoryId'), '/datasets/ds_country_lookup')]",
 				"[concat(variables('factoryId'), '/datasets/ds_processed_cases_deaths')]"
 			]
 		},
@@ -1212,7 +1214,7 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "df_country_lookup",
+								"referenceName": "ds_country_lookup",
 								"type": "DatasetReference"
 							},
 							"name": "srcLkpcountry"
@@ -1272,7 +1274,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_hospital_Admissions')]",
 				"[concat(variables('factoryId'), '/datasets/ds_dim_date')]",
-				"[concat(variables('factoryId'), '/datasets/df_country_lookup')]",
+				"[concat(variables('factoryId'), '/datasets/ds_country_lookup')]",
 				"[concat(variables('factoryId'), '/datasets/df_hospital_weekly')]",
 				"[concat(variables('factoryId'), '/datasets/df_hosptal_daily')]"
 			]
