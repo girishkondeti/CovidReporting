@@ -1,5 +1,5 @@
 {
-	"name": "df_hosptal_daily",
+	"name": "ds_hosptal_daily",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_adls_covidreporting_dl",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "ecdc_processed_files",
+				"folderPath": "ecdc/hospital_admin_weekly",
 				"fileSystem": "processed"
 			},
 			"columnDelimiter": ",",

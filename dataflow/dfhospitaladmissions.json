@@ -29,14 +29,14 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "df_hospital_weekly",
+						"referenceName": "ds_hospital_weekly",
 						"type": "DatasetReference"
 					},
 					"name": "sinkWeekly"
 				},
 				{
 					"dataset": {
-						"referenceName": "df_hosptal_daily",
+						"referenceName": "ds_hosptal_daily",
 						"type": "DatasetReference"
 					},
 					"name": "sinkDaily"

@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "df_transform_cases_deaths",
+						"referenceName": "ds_transform_cases_deaths",
 						"type": "DatasetReference"
 					},
 					"name": "casesdeathssource"
