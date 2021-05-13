@@ -1,5 +1,5 @@
 {
-	"name": "df_hosptal_daily",
+	"name": "ds_cases_deaths",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_adls_covidreporting_dl",
@@ -10,9 +10,9 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "hospital_daily.csv",
-				"folderPath": "ecdc_processed_files",
-				"fileSystem": "processed"
+				"fileName": "cases_deaths.csv",
+				"folderPath": "ecdc/cases_deaths",
+				"fileSystem": "gkraw"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
@@ -25,35 +25,35 @@
 				"type": "String"
 			},
 			{
-				"name": "population",
-				"type": "String"
-			},
-			{
-				"name": "country_code_2_digit",
-				"type": "String"
-			},
-			{
-				"name": "country_code_3_digit",
-				"type": "String"
-			},
-			{
 				"name": "country_code",
 				"type": "String"
 			},
 			{
-				"name": "reported_date",
+				"name": "continent",
+				"type": "String"
+			},
+			{
+				"name": "population",
+				"type": "String"
+			},
+			{
+				"name": "indicator",
+				"type": "String"
+			},
+			{
+				"name": "daily_count",
+				"type": "String"
+			},
+			{
+				"name": "date",
+				"type": "String"
+			},
+			{
+				"name": "rate_14_day",
 				"type": "String"
 			},
 			{
 				"name": "source",
-				"type": "String"
-			},
-			{
-				"name": "Cases_Count",
-				"type": "String"
-			},
-			{
-				"name": "deaths_Count",
 				"type": "String"
 			}
 		]
