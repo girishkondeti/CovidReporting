@@ -1,0 +1,61 @@
+{
+	"name": "df_hospital_weekly",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_covidreporting_dl",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "hospital_weekly.csv",
+				"folderPath": "ecdc_processed_files",
+				"fileSystem": "processed"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "country",
+				"type": "String"
+			},
+			{
+				"name": "population",
+				"type": "String"
+			},
+			{
+				"name": "country_code_2_digit",
+				"type": "String"
+			},
+			{
+				"name": "country_code_3_digit",
+				"type": "String"
+			},
+			{
+				"name": "country_code",
+				"type": "String"
+			},
+			{
+				"name": "reported_date",
+				"type": "String"
+			},
+			{
+				"name": "source",
+				"type": "String"
+			},
+			{
+				"name": "Cases_Count",
+				"type": "String"
+			},
+			{
+				"name": "deaths_Count",
+				"type": "String"
+			}
+		]
+	}
+}
