@@ -79,7 +79,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/df_hospital_weekly')]",
+			"name": "[concat(parameters('factoryName'), '/ds_hospital_weekly')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -92,7 +92,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"folderPath": "ecdc_processed_files",
+						"folderPath": "ecdc/hospital_admin_weekly",
 						"fileSystem": "processed"
 					},
 					"columnDelimiter": ",",
@@ -144,7 +144,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/df_hosptal_daily')]",
+			"name": "[concat(parameters('factoryName'), '/ds_hosptal_daily')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -157,7 +157,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"folderPath": "ecdc_processed_files",
+						"folderPath": "ecdc/hospital_admin_weekly",
 						"fileSystem": "processed"
 					},
 					"columnDelimiter": ",",
@@ -209,7 +209,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/df_transform_cases_deaths')]",
+			"name": "[concat(parameters('factoryName'), '/ds_cases_deaths')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -587,7 +587,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"folderPath": "ecdc_processed_files",
+						"folderPath": "ecdc/cases_deaths",
 						"fileSystem": "processed"
 					},
 					"columnDelimiter": ",",
@@ -987,7 +987,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "df_transform_cases_deaths",
+								"referenceName": "ds_cases_deaths",
 								"type": "DatasetReference"
 							},
 							"name": "casesdeathssource"
@@ -1030,7 +1030,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/df_transform_cases_deaths')]",
+				"[concat(variables('factoryId'), '/datasets/ds_cases_deaths')]",
 				"[concat(variables('factoryId'), '/datasets/ds_country_lookup')]",
 				"[concat(variables('factoryId'), '/datasets/ds_processed_cases_deaths')]"
 			]
@@ -1068,14 +1068,14 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "df_hospital_weekly",
+								"referenceName": "ds_hospital_weekly",
 								"type": "DatasetReference"
 							},
 							"name": "sinkWeekly"
 						},
 						{
 							"dataset": {
-								"referenceName": "df_hosptal_daily",
+								"referenceName": "ds_hosptal_daily",
 								"type": "DatasetReference"
 							},
 							"name": "sinkDaily"
@@ -1120,8 +1120,8 @@
 				"[concat(variables('factoryId'), '/datasets/ds_hospital_Admissions')]",
 				"[concat(variables('factoryId'), '/datasets/ds_dim_date')]",
 				"[concat(variables('factoryId'), '/datasets/ds_country_lookup')]",
-				"[concat(variables('factoryId'), '/datasets/df_hospital_weekly')]",
-				"[concat(variables('factoryId'), '/datasets/df_hosptal_daily')]"
+				"[concat(variables('factoryId'), '/datasets/ds_hospital_weekly')]",
+				"[concat(variables('factoryId'), '/datasets/ds_hosptal_daily')]"
 			]
 		},
 		{
