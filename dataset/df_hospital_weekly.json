@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "hospital_weekly.csv",
 				"folderPath": "ecdc_processed_files",
 				"fileSystem": "processed"
 			},
