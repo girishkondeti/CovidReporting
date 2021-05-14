@@ -11,8 +11,14 @@
 		"ls_adls_covidreporting_dl_accountKey": {
 			"value": ""
 		},
+		"ls_hdi_testing_password": {
+			"value": ""
+		},
 		"ls_adls_covidreporting_dl_properties_typeProperties_url": {
 			"value": "https://gkcovidreportingdl.dfs.core.windows.net"
+		},
+		"ls_hdi_testing_properties_typeProperties_userName": {
+			"value": "admin"
 		},
 		"ls_http_opendata_ecdc_europa_properties_typeProperties_url": {
 			"value": "@{linkedService().BaseURL}"
