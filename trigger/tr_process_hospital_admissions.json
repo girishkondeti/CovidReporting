@@ -1,5 +1,5 @@
 {
-	"name": "tr_hospital_admissions",
+	"name": "tr_process_hospital_admissions",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
@@ -17,7 +17,7 @@
 				{
 					"type": "TumblingWindowTriggerDependencyReference",
 					"referenceTrigger": {
-						"referenceName": "ttr_ecdc_data",
+						"referenceName": "tr_ingest_ecdc_data",
 						"type": "TriggerReference"
 					}
 				}
