@@ -1,0 +1,16 @@
+{
+	"name": "ds_sql_cases_and_deaths",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "covid_reporting",
+			"table": "cases_and_deaths"
+		}
+	}
+}
