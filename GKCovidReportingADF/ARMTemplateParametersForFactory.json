@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "GKCovidReportingADF"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
 		"ls_ablob_covidreportingsa_connectionString": {
 			"value": ""
 		},
@@ -12,9 +15,6 @@
 			"value": ""
 		},
 		"ls_hdi_testing_password": {
-			"value": ""
-		},
-		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
 		"ls_adls_covidreporting_dl_properties_typeProperties_url": {
