@@ -2,7 +2,7 @@
 	"name": "tr_sqlize_hosptal_admissions",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Hour",
@@ -17,7 +17,7 @@
 				{
 					"type": "TumblingWindowTriggerDependencyReference",
 					"referenceTrigger": {
-						"referenceName": "tr_hospital_admissions",
+						"referenceName": "tr_process_hospital_admissions",
 						"type": "TriggerReference"
 					}
 				}
