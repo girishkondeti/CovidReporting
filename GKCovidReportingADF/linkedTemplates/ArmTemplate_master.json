@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_hdi_testing'"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
 		"ls_adls_covidreporting_dl_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://gkcovidreportingdl.dfs.core.windows.net"
@@ -67,6 +71,9 @@
 					},
 					"ls_adls_covidreporting_dl_accountKey": {
 						"value": "[parameters('ls_adls_covidreporting_dl_accountKey')]"
+					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
 					},
 					"ls_hdi_testing_password": {
 						"value": "[parameters('ls_hdi_testing_password')]"
