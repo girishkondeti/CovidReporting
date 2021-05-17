@@ -1,5 +1,5 @@
 {
-	"name": "ttr_ecdc_data",
+	"name": "tr_ingest_ecdc_data",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
