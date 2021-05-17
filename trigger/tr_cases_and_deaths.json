@@ -5,15 +5,24 @@
 		"runtimeState": "Stopped",
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
-			"frequency": "Minute",
-			"interval": 15,
-			"startTime": "2021-05-16T15:40:00Z",
+			"frequency": "Hour",
+			"interval": 24,
+			"startTime": "2021-05-16T18:00:00Z",
 			"delay": "00:00:00",
 			"maxConcurrency": 50,
 			"retryPolicy": {
 				"intervalInSeconds": 30
 			},
-			"dependsOn": []
+			"dependsOn": [
+				{
+					"type": "TumblingWindowTriggerDependencyReference",
+					"offset": "0.00.00.000",
+					"referenceTrigger": {
+						"referenceName": "ttr_ecdc_data",
+						"type": "TriggerReference"
+					}
+				}
+			]
 		}
 	}
 }
