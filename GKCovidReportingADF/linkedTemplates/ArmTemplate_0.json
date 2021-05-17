@@ -104,6 +104,9 @@
 					"referenceName": "ls_adls_covidreporting_dl",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Raw"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -170,6 +173,9 @@
 					"referenceName": "ls_adls_covidreporting_dl",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Lookup"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -198,6 +204,9 @@
 				"linkedServiceName": {
 					"referenceName": "ls_adls_covidreporting_dl",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Lookup"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -282,6 +291,9 @@
 						"type": "string"
 					}
 				},
+				"folder": {
+					"name": "Raw"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -328,6 +340,9 @@
 						"type": "string"
 					}
 				},
+				"folder": {
+					"name": "Raw"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -357,6 +372,9 @@
 				"linkedServiceName": {
 					"referenceName": "ls_adls_covidreporting_dl",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Process"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -437,6 +455,9 @@
 					"referenceName": "ls_adls_covidreporting_dl",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Raw"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -495,6 +516,9 @@
 					"referenceName": "ls_ablob_covidreportingsa",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Lookup"
+				},
 				"annotations": [],
 				"type": "Json",
 				"typeProperties": {
@@ -518,6 +542,9 @@
 				"linkedServiceName": {
 					"referenceName": "ls_adls_covidreporting_dl",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Raw"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -548,6 +575,9 @@
 					"referenceName": "ls_adls_covidreporting_dl",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Process"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -575,6 +605,9 @@
 				"linkedServiceName": {
 					"referenceName": "ls_adls_covidreporting_dl",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Process"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -641,6 +674,9 @@
 					"referenceName": "ls_adls_covidreporting_dl",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Process"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -706,6 +742,9 @@
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Sql"
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
@@ -727,6 +766,9 @@
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Sql"
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
@@ -747,6 +789,9 @@
 				"linkedServiceName": {
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sql"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -812,6 +857,9 @@
 				"linkedServiceName": {
 					"referenceName": "ls_ablob_covidreportingsa",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Raw"
 				},
 				"annotations": [],
 				"type": "DelimitedText",

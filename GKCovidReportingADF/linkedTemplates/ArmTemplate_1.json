@@ -78,6 +78,9 @@
 						}
 					}
 				],
+				"folder": {
+					"name": "Process"
+				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -218,6 +221,9 @@
 						}
 					}
 				],
+				"folder": {
+					"name": "Ingest"
+				},
 				"annotations": []
 			},
 			"dependsOn": []
@@ -419,6 +425,9 @@
 						}
 					}
 				],
+				"folder": {
+					"name": "Ingest"
+				},
 				"annotations": []
 			},
 			"dependsOn": []
@@ -583,6 +592,9 @@
 						]
 					}
 				],
+				"folder": {
+					"name": "Sqlize"
+				},
 				"annotations": []
 			},
 			"dependsOn": []
@@ -745,6 +757,9 @@
 						]
 					}
 				],
+				"folder": {
+					"name": "Sqlize"
+				},
 				"annotations": []
 			},
 			"dependsOn": []
@@ -922,6 +937,9 @@
 						]
 					}
 				],
+				"folder": {
+					"name": "Sqlize"
+				},
 				"annotations": []
 			},
 			"dependsOn": []
@@ -1101,6 +1119,9 @@
 						}
 					}
 				],
+				"folder": {
+					"name": "Process"
+				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -1147,6 +1168,9 @@
 						}
 					}
 				],
+				"folder": {
+					"name": "Process"
+				},
 				"annotations": []
 			},
 			"dependsOn": [
