@@ -1,12 +1,12 @@
 {
-	"name": "ttr_ecdc_date",
+	"name": "ttr_ecdc_data",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Stopped",
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
-			"frequency": "Minute",
-			"interval": 15,
+			"frequency": "Hour",
+			"interval": 24,
 			"startTime": "2021-05-17T15:37:00Z",
 			"delay": "00:00:00",
 			"maxConcurrency": 50,
