@@ -1,3 +1,4 @@
+/* linked service*/
 {
 	"name": "ls_ablob_covidreportingsa",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
